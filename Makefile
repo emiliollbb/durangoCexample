@@ -19,4 +19,4 @@ main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o
 	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o -o main.bin
 
 clean:
-	rm -Rf $(BUILD_DIR)/
+	rm -Rf $(BUILD_DIR)/ main.bin
