@@ -7,6 +7,6 @@
 
 .segment  "VECTORS"
 
-.addr      $C000    ; NMI vector
-.addr      $C000       ; Reset vector
-.addr      $C000    ; IRQ/BRK vector
+.addr      $8000    ; NMI vector
+.addr      $8000       ; Reset vector
+.addr      $8000    ; IRQ/BRK vector
