@@ -10,6 +10,7 @@
 
 
 extern void __fastcall__ setVideoMode(char mode);
+extern void __fastcall__ drawPixelPair(void);
 
 void main(void){
 
@@ -21,6 +22,8 @@ void main(void){
     
     // B&W Hires mode
     //setVideoMode(HIRES | SCREEN_3);
+    
+    drawPixelPair();
     
     while(1){}
 }
