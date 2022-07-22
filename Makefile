@@ -19,7 +19,7 @@ $(BUILD_DIR)/:
 	mkdir -p $(BUILD_DIR)
 
 main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o
-	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o -o main.bin
+	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o /usr/share/cc65/lib/supervision.lib -o main.bin
 
 clean:
 	rm -Rf $(BUILD_DIR)/ main.bin

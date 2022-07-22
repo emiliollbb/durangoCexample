@@ -10,9 +10,14 @@
 
 
 extern void __fastcall__ setVideoMode(char mode);
-extern void __fastcall__ drawPixelPair(void);
+extern void __fastcall__ drawPixelPair(char *str);
+
+struct pixel_pair {
+    char x, y, color;
+};
 
 void main(void){
+    struct pixel_pair pixel;
 
     // Color lowres mode
     setVideoMode(RGB | SCREEN_3);
@@ -23,7 +28,8 @@ void main(void){
     // B&W Hires mode
     //setVideoMode(HIRES | SCREEN_3);
     
-    drawPixelPair();
+    pixel.x=10;
+    drawPixelPair("abc");
     
     while(1){}
 }
