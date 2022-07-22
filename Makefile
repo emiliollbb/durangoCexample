@@ -11,12 +11,15 @@ $(BUILD_DIR)/main.o: $(BUILD_DIR)/main.s
 
 $(BUILD_DIR)/vectors.o:
 	ca65 -t none vectors.s -o $(BUILD_DIR)/vectors.o
+	
+$(BUILD_DIR)/dlib.o:
+	ca65 -t none dlib.s -o $(BUILD_DIR)/dlib.o
 
 $(BUILD_DIR)/:
 	mkdir -p $(BUILD_DIR)
 
-main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o
-	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o -o main.bin
+main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o
+	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o -o main.bin
 
 clean:
 	rm -Rf $(BUILD_DIR)/ main.bin

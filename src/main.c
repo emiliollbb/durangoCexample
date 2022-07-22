@@ -1,8 +1,9 @@
 
+extern void __fastcall__ setVideoMode(char mode);
+
 void main(void){
 
-    *(unsigned int*)0xdf80=0x3f;
-    *(unsigned int*)0x1000=0xff;
+    setVideoMode(0x00);
     
     while(1){}
 }
