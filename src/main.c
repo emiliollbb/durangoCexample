@@ -1,9 +1,26 @@
+// [HiRes Invert S1 S0    RGB LED NC NC]
+#define HIRES 0X80
+#define INVERT 0X40
+#define SCREEN_0 0x00
+#define SCREEN_1 0x10
+#define SCREEN_2 0x20
+#define SCREEN_3 0x30
+#define RGB 0x08
+#define LED 0x04
+
 
 extern void __fastcall__ setVideoMode(char mode);
 
 void main(void){
 
-    setVideoMode(0x00);
+    // Color lowres mode
+    setVideoMode(RGB | SCREEN_3);
+    
+    // Grayscale lowres mode
+    //setVideoMode(SCREEN_3);
+    
+    // B&W Hires mode
+    //setVideoMode(HIRES | SCREEN_3);
     
     while(1){}
 }

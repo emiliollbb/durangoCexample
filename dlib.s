@@ -3,7 +3,6 @@
 .segment "CODE"
 
 .proc _setVideoMode: near
-    LDA #$3F
     STA $df80
 
     ; Write first two pixel in green
