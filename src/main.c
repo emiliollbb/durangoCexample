@@ -8,16 +8,17 @@
 #define RGB 0x08
 #define LED 0x04
 
+typedef struct{
+    char x, y, color;
+} pixel_pair;
+
 
 extern void __fastcall__ setVideoMode(char mode);
-extern void __fastcall__ drawPixelPair(char *str);
+extern void __fastcall__ drawPixelPair(pixel_pair *str);
 
-struct pixel_pair {
-    char x, y, color;
-};
 
 void main(void){
-    struct pixel_pair pixel;
+    pixel_pair *pixel;
 
     // Color lowres mode
     setVideoMode(RGB | SCREEN_3);
@@ -28,8 +29,10 @@ void main(void){
     // B&W Hires mode
     //setVideoMode(HIRES | SCREEN_3);
     
-    pixel.x=10;
-    drawPixelPair("abc");
+    pixel->x=10;
+    pixel->y=5;
+    pixel->color=0x12;
+    drawPixelPair(pixel);
     
     while(1){}
 }
