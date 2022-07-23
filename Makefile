@@ -18,8 +18,8 @@ $(BUILD_DIR)/dlib.o: dlib.s
 $(BUILD_DIR)/crt0.o: crt0.s
 	ca65 -t none crt0.s -o $(BUILD_DIR)/crt0.o
 
-$(BUILD_DIR)/sbc.lib: crt0.o
-	cp /usr/share/cc65/lib/supervision.lib $(BUILD_DIR)/sbc.lib && ar65 a sbc.lib crt0.o
+$(BUILD_DIR)/sbc.lib: $(BUILD_DIR)/crt0.o
+	cp /usr/share/cc65/lib/supervision.lib $(BUILD_DIR)/sbc.lib && ar65 a $(BUILD_DIR)/sbc.lib $(BUILD_DIR)/crt0.o
 	
 
 $(BUILD_DIR)/:
