@@ -9,16 +9,17 @@
 #define LED 0x04
 
 typedef struct{
-    char x, y, color;
+    unsigned char x, y, color;
 } pixel_pair;
 
 
 extern void __fastcall__ setVideoMode(char mode);
-extern void __fastcall__ drawPixelPair(pixel_pair *str);
+extern void __fastcall__ drawPixelPair(void*);
 
+pixel_pair pixel;
 
 void main(void){
-    pixel_pair *pixel;
+    
 
     // Color lowres mode
     setVideoMode(RGB | SCREEN_3);
@@ -29,10 +30,10 @@ void main(void){
     // B&W Hires mode
     //setVideoMode(HIRES | SCREEN_3);
     
-    pixel->x=10;
-    pixel->y=5;
-    pixel->color=0x12;
-    drawPixelPair(pixel);
+    pixel.x=0x77;
+    pixel.y=0x88;
+    pixel.color=0x22;
+    drawPixelPair(&pixel);
     
     while(1){}
 }
