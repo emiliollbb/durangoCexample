@@ -10,7 +10,8 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
 .segment "CODE"
 
 .proc _setVideoMode: near
-    STA $df80   
+    STA $df80
+    RTS
 .endproc
 
 .proc _drawPixelPair: near
@@ -45,4 +46,10 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
     ; Write first two pixel in green
     LDY #$00
     STA (_drawPixelPair_screen), Y
+    RTS
+.endproc
+
+.proc _virtualSerialOut: near
+    STA $df93
+    RTS
 .endproc

@@ -15,6 +15,7 @@ typedef struct{
 
 extern void __fastcall__ setVideoMode(char mode);
 extern void __fastcall__ drawPixelPair(void*);
+extern void __fastcall__ virtualSerialOut(char mode);
 
 pixel_pair pixel;
 
