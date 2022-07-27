@@ -10,7 +10,8 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
 .segment "CODE"
 
 .proc _setVideoMode: near
-    STA $df80   
+    STA $df80
+    RTS
 .endproc
 
 .proc _drawPixelPair: near
@@ -24,25 +25,97 @@ _drawPixelPair_screen: .res 2, $00 ;  Reserve a local zero page pointer for scre
     LDA #$00
     STA _drawPixelPair_screen
         
-    ; Load first argument, x coord
+    convert_coords_to_mem:
+    LDX #$00
+    ; Load y coord argument in acumulator
+    LDY #$01
+    LDA (_drawPixelPair_data), Y
+    ; Multiply y coord by 64 (64 bytes each row)
+    ASL
+    ; Also shift more sig byte
+    TAY
+    TXA
+    ROL
+    TAX
+    TYA
+    ; Shift less sig byte
+    ASL
+    ; Also shift more sig byte
+    TAY
+    TXA
+    ROL
+    TAX
+    TYA
+    ; Shift less sig byte
+    ASL
+    ; Also shift more sig byte
+    TAY
+    TXA
+    ROL
+    TAX
+    TYA
+    ; Shift less sig byte
+    ASL
+    ; Also shift more sig byte
+    TAY
+    TXA
+    ROL
+    TAX
+    TYA
+    ; Shift less sig byte
+    ASL
+    ; Also shift more sig byte
+    TAY
+    TXA
+    ROL
+    TAX
+    TYA
+    ; Shift less sig byte
+    ASL
+    ; Also shift more sig byte
+    TAY
+    TXA
+    ROL
+    TAX
+    TYA
+    ; Shift less sig byte
+    ; Add to initial memory address, and save it
+    CLC
+    ADC _drawPixelPair_screen
+    STA _drawPixelPair_screen
+
+    ; If overflow, add one to more sig byte
+    BCC conv_coor_mem_01
+    INX
+    conv_coor_mem_01:
+    ; Add calculated offset to $11 (more sig)
+    TXA
+    CLC
+    ADC _drawPixelPair_screen+1
+    STA _drawPixelPair_screen+1
+
+    ; Calculate X coord
+    ; Load y coord
     LDY #$00
     LDA (_drawPixelPair_data), Y
-    ; Add screen pos coord
+    ; Divide x coord by 2 (2 pixel each byte)
+    LSR
+    ; Add to memory address
+    CLC
     ADC _drawPixelPair_screen
+    ; Store in video memory position
     STA _drawPixelPair_screen
-    
-    ; Load next argument, y coord
-    INY
+    ; If overflow, increment left byte
+    BCC conv_coor_mem_02
+    INC _drawPixelPair_screen+1
+    conv_coor_mem_02:
+    ; Store color in accumulator
+    LDY #$02
     LDA (_drawPixelPair_data), Y
-    ; Add screen pos coord
-    ADC _drawPixelPair_screen
-    STA _drawPixelPair_screen
-    
-    ; Load next argument, color
-    INY
-    LDA (_drawPixelPair_data), Y
-    
-    ; Write first two pixel in green
+    ; Draw actual pixel
     LDY #$00
     STA (_drawPixelPair_screen), Y
+    RTS
 .endproc
+
+

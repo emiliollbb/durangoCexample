@@ -30,7 +30,7 @@ void main(void){
     // B&W Hires mode
     //setVideoMode(HIRES | SCREEN_3);
     
-    pixel.x=5;
+    pixel.x=10;
     pixel.y=2;
     pixel.color=0x22;
     drawPixelPair(&pixel);
