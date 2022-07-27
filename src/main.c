@@ -11,6 +11,7 @@
 typedef struct{
     unsigned char x, y, color;
 } pixel_pair;
+unsigned char row, col, z;
 
 
 extern void __fastcall__ setVideoMode(char mode);
@@ -30,10 +31,20 @@ void main(void){
     // B&W Hires mode
     //setVideoMode(HIRES | SCREEN_3);
     
-    pixel.x=5;
-    pixel.y=2;
-    pixel.color=0x22;
-    drawPixelPair(&pixel);
+    
+    pixel.color=0x11;
+    pixel.y=0;
+    
+    for(z=0; z<14; z++) {
+    for(row=0; row<9; row++) {
+        for(col=0; col<128; col+=2) {
+            pixel.x=col;
+            drawPixelPair(&pixel);
+        }
+        pixel.y++;
+    }
+    pixel.color+=0x11;
+    }
     
     while(1){}
 }
