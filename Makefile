@@ -12,6 +12,12 @@ $(BUILD_DIR)/main.o: $(BUILD_DIR)/main.s
 $(BUILD_DIR)/vectors.o: vectors.s
 	ca65 -t none vectors.s -o $(BUILD_DIR)/vectors.o
 	
+$(BUILD_DIR)/interrupt.o: interrupt.s
+	ca65 -t none interrupt.s -o $(BUILD_DIR)/interrupt.o
+	
+$(BUILD_DIR)/wait.o: wait.s
+	ca65 -t none wait.s -o $(BUILD_DIR)/wait.o
+	
 $(BUILD_DIR)/dlib.o: dlib.s
 	ca65 -t none dlib.s -o $(BUILD_DIR)/dlib.o
 
@@ -25,11 +31,11 @@ $(BUILD_DIR)/sbc.lib: $(BUILD_DIR)/crt0.o
 $(BUILD_DIR)/:
 	mkdir -p $(BUILD_DIR)
 
-main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib
-	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib -o main.bin
+main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/interrupt.o $(BUILD_DIR)/wait.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib
+	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/interrupt.o $(BUILD_DIR)/wait.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib -o main.bin
 	
-main16k.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib
-	ld65 -C durango16k.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib -o main16k.bin	
+main16k.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/interrupt.o $(BUILD_DIR)/wait.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib
+	ld65 -C durango16k.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/interrupt.o $(BUILD_DIR)/wait.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib -o main16k.bin	
 
 clean:
 	rm -Rf $(BUILD_DIR)/ main.bin

@@ -3,10 +3,10 @@
 ; ---------------------------------------------------------------------------
 ;
 ; Defines the interrupt vector table.
-.import _init
+.import _init, _nmi_int, _irq_int
 
 .segment  "VECTORS"
 
-.addr      _init    ; NMI vector
+.addr      _nmi_int    ; NMI vector
 .addr      _init       ; Reset vector
-.addr      _init    ; IRQ/BRK vector
+.addr      _irq_int    ; IRQ/BRK vector
