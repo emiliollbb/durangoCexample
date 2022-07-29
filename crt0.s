@@ -22,7 +22,14 @@
 ; ---------------------------------------------------------------------------
 ; A little light 6502 housekeeping
 
-_init:    LDX     #$FF                 ; Initialize stack pointer to $01FF
+_init:
+; ---------------------------------------------------------------------------  
+; Disable hardware periodic interrupt
+          SEI                          ; Disable interrupts
+
+; ---------------------------------------------------------------------------    
+; Initialize 6502 stack
+          LDX     #$FF                 ; Initialize stack pointer to $01FF
           TXS
           CLD                          ; Clear decimal mode
 
