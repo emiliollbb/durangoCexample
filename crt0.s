@@ -8,7 +8,7 @@
 .import   _main
 
 .export   __STARTUP__ : absolute = 1        ; Mark as startup
-.import   __RAM_START__, __RAM_SIZE__       ; Linker generated
+.import __STACKSTART__, __STACKSIZE__
 
 .import    copydata, zerobss, initlib, donelib
 
@@ -29,9 +29,9 @@ _init:    LDX     #$FF                 ; Initialize stack pointer to $01FF
 ; ---------------------------------------------------------------------------
 ; Set cc65 argument stack pointer
 
-          LDA     #<(__RAM_START__ + __RAM_SIZE__)
+          LDA     #<(__STACKSTART__ + __STACKSIZE__)
           STA     sp
-          LDA     #>(__RAM_START__ + __RAM_SIZE__)
+          LDA     #>(__STACKSTART__ + __STACKSIZE__)
           STA     sp+1
 
 ; ---------------------------------------------------------------------------

@@ -11,7 +11,7 @@
 typedef struct{
     unsigned char x, y, color;
 } pixel_pair;
-unsigned char row, col, z;
+
 
 
 extern void __fastcall__ setVideoMode(char mode);
@@ -20,7 +20,7 @@ extern void __fastcall__ drawPixelPair(void*);
 pixel_pair pixel;
 
 void main(void){
-    
+    unsigned char row, col, z;
 
     // Color lowres mode
     setVideoMode(RGB | SCREEN_3);
