@@ -1,7 +1,7 @@
 SOURCE_DIR=src
 BUILD_DIR=bin
 
-all: main.bin
+all: main.bin main16k.bin
 
 $(BUILD_DIR)/main.s: $(SOURCE_DIR)/main.c
 	cc65 $(SOURCE_DIR)/main.c -t none --cpu 6502 -o $(BUILD_DIR)/main.s
@@ -27,6 +27,9 @@ $(BUILD_DIR)/:
 
 main.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib
 	ld65 -C durango.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib -o main.bin
+	
+main16k.bin: $(BUILD_DIR)/ $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib
+	ld65 -C durango16k.cfg $(BUILD_DIR)/main.o $(BUILD_DIR)/vectors.o $(BUILD_DIR)/dlib.o $(BUILD_DIR)/crt0.o $(BUILD_DIR)/sbc.lib -o main16k.bin	
 
 clean:
 	rm -Rf $(BUILD_DIR)/ main.bin
